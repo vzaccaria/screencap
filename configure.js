@@ -1,8 +1,8 @@
 var generateProject = require('diy').generateProject
 var uid = require('uid')
 
-var copts = `-ICF++/include`
-var lopts = `-framework CoreFoundation`
+var copts = `-std=c++11 -I. -ICF++/include`
+var lopts = `-framework CoreFoundation -framework CoreGraphics`
 
 generateProject(function (_) {
   "use strict"
@@ -18,17 +18,13 @@ generateProject(function (_) {
     _.reduceFiles(command, product, body)
   }
 
-  _.collect("all", function (_) {
+  _.collectSeq("all", function (_) {
     _.toFile("screen.x", (_) => {
       _.clangExe((_) => {
         _.clang("screen.cpp")
         _.clang("CF++/source/*.cpp", "CF++/include/**/*.h")
       })
     })
+    _.cmd("chmod +x screen.x")
   })
-
-  // _.collect("clean", function (_) {
-  //   _.cmd("rm -rf vhdl")
-  //   _.cmd("rm -f *.hi *.o *.s *.dyn_hi *.dyn_o")
-  // })
 })
