@@ -1,8 +1,11 @@
 var generateProject = require('diy').generateProject
 var uid = require('uid')
 
-var copts = `-std=c++11 -I. -ICF++/include`
-var lopts = `-framework CoreFoundation -framework CoreGraphics`
+var opencv_lopts = '$(shell pkg-config --libs opencv)'
+var opencv_copts = '$(shell pkg-config --cflags opencv)'
+
+var copts = `-std=c++11 -I. -ICF++/include ${opencv_copts}`
+var lopts = `-framework SDL2 -framework CoreServices -framework CoreFoundation -framework CoreGraphics -framework ImageIO ${opencv_lopts}`
 
 generateProject(function (_) {
   "use strict"

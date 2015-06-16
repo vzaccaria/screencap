@@ -9,6 +9,7 @@
     "no-extra-semi": false,
     "semi": "never",
     "eol-last": false,
-    "no-shadow": false
+    "no-shadow": false,
+    "camelcase": false
   }
 }
