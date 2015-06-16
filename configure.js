@@ -5,7 +5,7 @@ var opencv_lopts = '$(shell pkg-config --libs opencv)'
 var opencv_copts = '$(shell pkg-config --cflags opencv)'
 
 var copts = `-std=c++11 -I. -ICF++/include ${opencv_copts}`
-var lopts = `-framework SDL2 -framework CoreServices -framework CoreFoundation -framework CoreGraphics -framework ImageIO ${opencv_lopts}`
+var lopts = `-framework AVFoundation -framework CoreServices -framework CoreFoundation -framework CoreGraphics -framework ImageIO ${opencv_lopts}`
 
 generateProject(function (_) {
   "use strict"
