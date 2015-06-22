@@ -35,25 +35,23 @@ teasy::opts teasy::getOpts(int argc, const char** argv)
 				}, true, "Teasy 0.0");
 
     try {
+		for(auto v: args) {
+			cout << v.first << ";" << v.second << endl;
+		}
 		if(checkopts("CONFIGURATION")) {
 			string error;
 			string name = args["CONFIGURATION"].asString();
-			string filename = args["FILE"].asString();
+			string filename = args["--config"].asString();
 			auto config = shell::cat(filename);
-			auto data   = (json11::Json::parse(config, error))[name];
+			auto data   = (json11::Json::parse(config, error))[0][name];
 			string program = data["program"].string_value();
 			auto width = data["width"].int_value();
 			auto height = data["height"].int_value();
 			struct opts options = ((struct opts) { program, (unsigned int)width, (unsigned int)height });
 			return options;
 		}
-    } catch(char const *e) {
-		cout << "Exception: " << e << '\n';
-		cout << "Aborting" << '\n';
+    } catch(...) {
+		cerr << "Error while reading configuration file" << endl;
 		exit(1);
-    } catch(string &e) {
-		cout << "Exception: " << e << '\n';
-		cout << "Aborting" << '\n';
-		exit(1);     
     }
 }

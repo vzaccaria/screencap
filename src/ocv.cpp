@@ -25,15 +25,49 @@ void convertImage(CGImageRef imageRef, Mat & cgBuffer)
 	CGImageRelease(imageRef);
 }
 
-void initFrame()
+float gWidth;
+float gHeight;
+
+void initFrame(int width, int height)
 {
-	namedWindow( "Display window", CV_GUI_EXPANDED );
+	namedWindow( "Display window", 0);
+	resizeWindow( "Display window", width, height);
+	
+	gWidth = width;
+	gHeight = height;
 }
 
+typedef struct sizeAndBorder {
+	int hSize;
+	int vSize;
+	int hBorder;
+	int vBorder;
+} sizeAndBorder;
 
+void resizeKeepAspectRatio(float wWidth, float wHeight, Mat & in, Mat & out) {
+	float iw = in.cols;
+	float ih = in.rows;
+	if(iw > wWidth) {
+		float ratio = wWidth/ iw;
+		iw = iw * ratio;
+		ih = ih * ratio;
+	} else {
+		if(ih > wHeight) {
+			float ratio = wHeight/ ih;
+			iw = iw * ratio;
+			ih = ih * ratio;
+		}
+	}
+	auto deltaW = (wWidth - iw)/2;
+	auto deltaH = (wHeight - ih)/2;
+	resize(in, out, cv::Size((int)iw, (int)ih), 0, 0, INTER_CUBIC);
+	copyMakeBorder(out, out, deltaH, deltaH, deltaW, deltaW, BORDER_CONSTANT, 0);
+}
+
+Mat dBuffer;
 
 void showFrame(Mat & cgBuffer)
 {
-	resize(cgBuffer, cgBuffer,  cv::Size(), 0.8, 0.8, INTER_CUBIC);
-	imshow("Display window", cgBuffer);
+	resizeKeepAspectRatio(gWidth, gHeight, cgBuffer, dBuffer);
+	imshow("Display window", dBuffer);
 }

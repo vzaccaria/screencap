@@ -6,5 +6,5 @@
 #include <opencv2/opencv.hpp>
 
 extern void convertImage(CGImageRef imageRef, cv::Mat & cgBuffer);
-extern void initFrame();
+extern void initFrame(int width, int height);
 extern void showFrame(cv::Mat & cgBuffer);

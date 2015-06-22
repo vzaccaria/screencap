@@ -27,7 +27,7 @@ int main(int argc, const char **argv)
 	auto wid = getWindowID(opts.program);
 
 	if(wid != 0) {
-		initFrame();
+		initFrame(opts.width, opts.height);
 		while (true) {
 			usleep(MS(200));
 			auto windowImage = getWindowImage(wid);
