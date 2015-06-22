@@ -4,10 +4,13 @@
 #include "osx.hpp"
 #include "ocv.hpp"
 #include "opts.hpp"
+#include "print.hpp"
+#include "cppformat/format.h"
 
 using namespace std;
 using namespace cv;
 using namespace teasy;
+using namespace fmt;
 
 
 /*
@@ -25,6 +28,7 @@ int main(int argc, const char **argv)
 
 	auto opts = getOpts(argc, argv);
 	auto wid = getWindowID(opts.program);
+	printHeader();
 
 	if(wid != 0) {
 		initFrame(opts.width, opts.height);
@@ -35,5 +39,7 @@ int main(int argc, const char **argv)
 			showFrame(cgBuffer);
 		}
 		waitKey(0);
-	}                                        // Wait for a keystroke in the window
+	} else {
+		reportError(TS_CANT_FIND_PROGRAM, fmt::format("Cannot find window for `{}`", opts.program));
+	}
 }

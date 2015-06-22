@@ -1,7 +1,6 @@
 [
 	{
-		"term": {
-			"program": "Terminal",
+		"ct41": {
 			"width": 800,
 			"height": 600
 		}

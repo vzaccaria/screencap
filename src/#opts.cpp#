@@ -39,7 +39,7 @@ teasy::opts teasy::getOpts(int argc, const char** argv)
 		for(auto v: args) {
 			debugm(v.first);
 			if(v.second.isString()) {
-			debugm(v.second.asString());
+				debugm(v.second.asString());
 			}
 		}
 		if(checkopts("CONFIGURATION")) {

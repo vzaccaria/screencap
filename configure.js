@@ -42,6 +42,7 @@ generateProject(function (_) {
           _.clang("lib3rd/CF++/source/*.cpp", "lib3rd/CF++/include/**/*.h");
           _.clang("lib3rd/docopt/docopt.cpp", "lib3rd/docopt/docopt.h");
           _.clang("lib3rd/json11/json11.cpp", "lib3rd/json11/json11.hpp");
+		  _.clang("lib3rd/cppformat/*.cc", "lib3rd/cppformat/*.h");
       })
     })
     _.cmd("chmod +x bin/screen.x")
