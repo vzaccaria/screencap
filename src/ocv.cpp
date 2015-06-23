@@ -39,12 +39,11 @@ void initFrame(int width, int height)
 }
 
 template<typename Func>
-Mat overlayOn(Mat & out, float opacity, Func lam) {
+void overlayOn(Mat & out, float opacity, Func lam) {
 	Mat in;
 	out.copyTo(in);
 	lam(in);
 	addWeighted(in, opacity, out, 1.0 - opacity, 0.0, out);
-	return out;
 }
 
 void resizeKeepAspectRatio(float wWidth, float wHeight, Mat & in, Mat & out) {
@@ -65,15 +64,23 @@ void resizeKeepAspectRatio(float wWidth, float wHeight, Mat & in, Mat & out) {
 	auto deltaH = std::max(0.0f,(wHeight - ih)/2);
 	resize(in, out, cv::Size((int)iw, (int)ih), 0, 0, INTER_CUBIC);
 	copyMakeBorder(out, out, deltaH, deltaH, deltaW, deltaW, BORDER_CONSTANT, 0);
-	out = overlayOn(out, 0.8, [=](Mat & canvas) -> void {
-			circle(canvas, cv::Point(50,50),50, Scalar(255,255,255),CV_FILLED, 8,0);
+}
+
+#define lambda(m) [=](Mat & m) -> void
+
+void overlayText(Mat & dBuffer, const char *text) {
+	overlayOn(dBuffer, 0.2, lambda(canvas) {
+			cv::rectangle(canvas, cv::Rect(20, 20, 200, 50), CV_RGB(0,0,0), CV_FILLED);
+		});
+	overlayOn(dBuffer, 0.9, lambda(canvas) {
+			cv::putText(canvas, text, cv::Point(50,50), FONT_HERSHEY_DUPLEX, 1.0, CV_RGB(255,255,255));
 		});
 }
 
-Mat dBuffer;
-
 void showFrame(Mat & cgBuffer)
 {
+	Mat dBuffer;
 	resizeKeepAspectRatio(gWidth, gHeight, cgBuffer, dBuffer);
+	overlayText(dBuffer, "Foo, Bar");
 	imshow("Display window", dBuffer);
 }
