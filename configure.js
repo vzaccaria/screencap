@@ -18,7 +18,9 @@ var lopts = `\\
     -framework CoreFoundation \\
     -framework CoreGraphics \\
     -framework ImageIO \\
-    ${opencv_lopts}`
+    ${opencv_lopts} \\
+    -lfolly \\
+    -lglog`
 
 generateProject(function (_) {
   "use strict"

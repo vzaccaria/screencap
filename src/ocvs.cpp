@@ -27,7 +27,6 @@ std::pair<cv::Rect, cv::Size> pad(cv::Mat & m, float padding) {
 void resizeKeepAspectRatio(cv::Mat & in, cv::Mat & out) {
 	float wWidth = out.cols;
 	float wHeight = out.rows;
-	debugMat(in);
 	debugMat(out);
 
 	float iw = in.cols;
@@ -36,12 +35,11 @@ void resizeKeepAspectRatio(cv::Mat & in, cv::Mat & out) {
 		float ratio = wWidth/ iw;
 		iw = iw * ratio;
 		ih = ih * ratio;
-	} else {
-		if(ih > wHeight) {
-			float ratio = wHeight/ ih;
-			iw = iw * ratio;
-			ih = ih * ratio;
-		}
+	}
+	if(ih > wHeight) {
+		float ratio = wHeight/ ih;
+		iw = iw * ratio;
+		ih = ih * ratio;
 	}
 	int iiw = (int) iw;
 	int iih = (int) ih;
@@ -54,7 +52,8 @@ void resizeKeepAspectRatio(cv::Mat & in, cv::Mat & out) {
 	//debugShouldEqual(dst1.rows + deltaH * 2, out.rows);
 	auto _hRem = out.rows - deltaH - dst1.rows;
 	auto _wRem = out.cols - deltaW - dst1.cols;
-	copyMakeBorder(dst1, dst2, deltaH, _hRem, deltaW, _wRem, cv::BORDER_CONSTANT, 0);
-	resize(dst2, out, cvSize(out.cols, out.rows), 0, 0, cv::INTER_CUBIC);
+	debugShouldEqual(out.rows, dst1.rows + deltaH + _hRem);
+	debugShouldEqual(out.cols, dst1.cols + deltaW + _wRem);
+	copyMakeBorder(dst1, out, deltaH, _hRem, deltaW, _wRem, cv::BORDER_CONSTANT, 0);
 }
 
