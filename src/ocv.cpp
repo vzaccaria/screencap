@@ -1,7 +1,14 @@
 #include "ocv.hpp"
+#include "ocvs.hpp"
 #include <algorithm>
+#include <utility>
 
 using namespace cv;
+
+
+void drawBlackRect(Mat & canvas, cv::Rect r) {
+	cv::rectangle(canvas, r, black, CV_FILLED);
+}
 
 void convertImage(CGImageRef imageRef, Mat & cgBuffer)
 {
@@ -38,49 +45,39 @@ void initFrame(int width, int height)
 	gHeight = height;
 }
 
-template<typename Func>
-void overlayOn(Mat & out, float opacity, Func lam) {
-	Mat in;
-	out.copyTo(in);
-	lam(in);
-	addWeighted(in, opacity, out, 1.0 - opacity, 0.0, out);
+
+void overlayTime(Mat & dBuffer) {
+	// splitV(dBuffer, 0.30, lambda(d) {
+	// 		overlayOn(d, 0.2, lambda(canvas) {
+	// 				drawBlackRect(canvas, pad(canvas, 0.1).first);
+	// 			});
+			cv::putText(dBuffer, "pippo", cv::Point(50,50), FONT_HERSHEY_DUPLEX, 1.0, white);
+		// });
 }
 
-void resizeKeepAspectRatio(float wWidth, float wHeight, Mat & in, Mat & out) {
-	float iw = in.cols;
-	float ih = in.rows;
-	if(iw > wWidth) {
-		float ratio = wWidth/ iw;
-		iw = iw * ratio;
-		ih = ih * ratio;
-	} else {
-		if(ih > wHeight) {
-			float ratio = wHeight/ ih;
-			iw = iw * ratio;
-			ih = ih * ratio;
-		}
-	}
-	auto deltaW = std::max(0.0f,(wWidth - iw)/2);
-	auto deltaH = std::max(0.0f,(wHeight - ih)/2);
-	resize(in, out, cv::Size((int)iw, (int)ih), 0, 0, INTER_CUBIC);
-	copyMakeBorder(out, out, deltaH, deltaH, deltaW, deltaW, BORDER_CONSTANT, 0);
-}
+// void overlayText(Mat & dBuffer, const char *text) {
+// 	overlayOn(dBuffer, 0.2, lambda(canvas) {
+// 			cv::rectangle(canvas, cv::Rect(20, 20, 200, 50), black, CV_FILLED);
+// 		});
+// 	overlayOn(dBuffer, 0.9, lambda(canvas) {
+// 			cv::putText(canvas, text, cv::Point(50,50), FONT_HERSHEY_DUPLEX, 1.0, white);
+// 		});
+// }
 
-#define lambda(m) [=](Mat & m) -> void
 
-void overlayText(Mat & dBuffer, const char *text) {
-	overlayOn(dBuffer, 0.2, lambda(canvas) {
-			cv::rectangle(canvas, cv::Rect(20, 20, 200, 50), CV_RGB(0,0,0), CV_FILLED);
-		});
-	overlayOn(dBuffer, 0.9, lambda(canvas) {
-			cv::putText(canvas, text, cv::Point(50,50), FONT_HERSHEY_DUPLEX, 1.0, CV_RGB(255,255,255));
-		});
-}
-
-void showFrame(Mat & cgBuffer)
+void showFrame(Mat &fromBuffer)
 {
-	Mat dBuffer;
-	resizeKeepAspectRatio(gWidth, gHeight, cgBuffer, dBuffer);
-	overlayText(dBuffer, "Foo, Bar");
-	imshow("Display window", dBuffer);
+	Mat destBuffer(gWidth, gHeight, CV_8UC4);
+
+	auto displayTime = lambda(d1Buffer) {
+			overlayTime(d1Buffer);
+	};
+
+	auto resizeVideo = lambda(d2Buffer) {
+		resizeKeepAspectRatio(fromBuffer, d2Buffer);
+		//resizeKeepAspectRatio(fromBuffer, destBuffer);
+	};
+	
+	splitV(destBuffer, 0.2, displayTime, resizeVideo);
+	imshow("Display window", destBuffer);
 }

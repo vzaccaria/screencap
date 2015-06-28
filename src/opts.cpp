@@ -4,6 +4,7 @@
 #include "json11/json11.hpp"
 #include "cppformat/format.h"
 #include "opts.hpp"
+#include "print.hpp"
 
 
 static const char USAGE[] =
@@ -57,7 +58,6 @@ teasy::opts teasy::getOpts(int argc, const char** argv)
 			return options;
 		}
     } catch(...) {
-		cerr << "Error while reading configuration file" << endl;
-		exit(1);
+		reportError(TS_CANT_READ_CONFIG, "Cannot read configuration file.");
     }
 }
