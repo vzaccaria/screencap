@@ -22,7 +22,7 @@ using namespace folly;
 
 
 Future<void> processFrame(CGWindowID wid) {
-	auto promise = make_shared<Promise<void>>(); /* Shared is for allocation */
+	auto promise = make_shared<Promise<void>>(); /* Shared is for counting references to it. */
 	std::thread([=]{
 			cv::Mat cgBuffer;
 			auto windowImage = getWindowImage(wid);

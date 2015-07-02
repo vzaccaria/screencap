@@ -2,6 +2,7 @@
 #include "ocvs.hpp"
 #include <algorithm>
 #include <utility>
+#include <mutex>
 
 using namespace cv;
 
@@ -64,6 +65,7 @@ void overlayTime(Mat & dBuffer) {
 // 		});
 // }
 
+std::mutex buffAccess;
 
 void showFrame(Mat &fromBuffer)
 {
@@ -79,5 +81,6 @@ void showFrame(Mat &fromBuffer)
 	};
 	
 	splitV(destBuffer, 0.2, displayTime, resizeVideo);
+    std::lock_guard<std::mutex> guard(buffAccess);
 	imshow("Display window", destBuffer);
 }

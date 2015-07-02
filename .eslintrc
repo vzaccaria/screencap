@@ -5,11 +5,10 @@
     "shelljs": true
   },
   "rules": {
-    "quotes": "double",
-    "no-extra-semi": false,
-    "semi": "never",
-    "eol-last": false,
-    "no-shadow": false,
-    "camelcase": false
+    "quotes": [1, "double"],
+    "no-extra-semi": 0,
+    "semi": 0,
+    "eol-last": 0,
+    "no-shadow": 0 
   }
 }
