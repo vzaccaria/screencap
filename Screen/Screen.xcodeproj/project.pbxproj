@@ -25,7 +25,6 @@
 		30F7966D1B45230C0046198F = {
 			isa = PBXGroup;
 			children = (
-				30F7967B1B4523A50046198F /* ocv.hpp */,
 				30F7967C1B4523A50046198F /* ocvs.cpp */,
 				30F7967D1B4523A50046198F /* ocvs.hpp */,
 				30F7967E1B4523A50046198F /* opts.cpp */,
@@ -36,6 +35,7 @@
 				30F796831B4523A50046198F /* print.hpp */,
 				30F796841B4523A50046198F /* screen.cpp */,
 				30F796781B45236D0046198F /* config.h */,
+				30F7967B1B4523A50046198F /* ocv.hpp */,
 				30F796791B45236D0046198F /* ocv.cpp */,
 			);
 			sourceTree = "<group>";

@@ -60,4 +60,5 @@ teasy::opts teasy::getOpts(int argc, const char** argv)
     } catch(...) {
 		reportError(TS_CANT_READ_CONFIG, "Cannot read configuration file.");
     }
+    exit(1);
 }

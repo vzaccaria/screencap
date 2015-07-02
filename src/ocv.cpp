@@ -47,40 +47,25 @@ void initFrame(int width, int height)
 }
 
 
-void overlayTime(Mat & dBuffer) {
-	// splitV(dBuffer, 0.30, lambda(d) {
-	// 		overlayOn(d, 0.2, lambda(canvas) {
-	// 				drawBlackRect(canvas, pad(canvas, 0.1).first);
-	// 			});
-			cv::putText(dBuffer, "pippo", cv::Point(50,50), FONT_HERSHEY_DUPLEX, 1.0, white);
-		// });
-}
-
-// void overlayText(Mat & dBuffer, const char *text) {
-// 	overlayOn(dBuffer, 0.2, lambda(canvas) {
-// 			cv::rectangle(canvas, cv::Rect(20, 20, 200, 50), black, CV_FILLED);
-// 		});
-// 	overlayOn(dBuffer, 0.9, lambda(canvas) {
-// 			cv::putText(canvas, text, cv::Point(50,50), FONT_HERSHEY_DUPLEX, 1.0, white);
-// 		});
-// }
-
 std::mutex buffAccess;
 
 void showFrame(Mat &fromBuffer)
 {
 	Mat destBuffer(gWidth, gHeight, CV_8UC4);
+   
+    auto displayTime = lambda(canvas) {
+		overlayOn(canvas, 0.2, lambda(c2) {
+				auto rect = pad(canvas, 0.05).first;
+				drawBlackRect(c2, rect);
+			});
+		padCanvas(canvas, 0.1, lambda(inner) {
+				centerText(inner, "Foo centered");
+			});
+    };
+    
+    resizeKeepAspectRatio(fromBuffer, destBuffer);
+    splitV(destBuffer, 0.2, displayTime, lambda(foo) { });
 
-	auto displayTime = lambda(d1Buffer) {
-			overlayTime(d1Buffer);
-	};
-
-	auto resizeVideo = lambda(d2Buffer) {
-		resizeKeepAspectRatio(fromBuffer, d2Buffer);
-		//resizeKeepAspectRatio(fromBuffer, destBuffer);
-	};
-	
-	splitV(destBuffer, 0.2, displayTime, resizeVideo);
     std::lock_guard<std::mutex> guard(buffAccess);
-	imshow("Display window", destBuffer);
+    imshow("Display window", destBuffer);
 }

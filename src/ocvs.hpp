@@ -6,6 +6,7 @@
 
 
 #define lambda(m) [&](Mat & m) -> void
+#define no(op)    ([&](Mat & op) -> void {})
 
 #define white  CV_RGB(255,255,255)
 #define black  CV_RGB(0,0,0)
@@ -37,5 +38,27 @@ void splitV(cv::Mat & in, float alpha, Func1 lam1, Func2 lam2) {
 	lam2(rng2);
 }
 
-extern void resizeKeepAspectRatio(cv::Mat & in, cv::Mat & out);
+template<typename Func>
+void padCanvas(cv::Mat & m, float padding, Func lam1) {
+	auto r = pad(m, padding).first;
+	auto rcol = cv::Range(r.x, r.x + r.width);
+	auto rrow = cv::Range(r.y, r.y + r.height);
+	auto submatrix = m(rrow, rcol);
+	lam1(submatrix);
+}
 
+template<typename Func1, typename Func2>
+void splitH(cv::Mat & in, float alpha, Func1 lam1, Func2 lam2) {
+    float ih = (int) in.cols;
+    int ih1 = (int) (in.cols * alpha);
+    debugMat(in);
+    auto rng1 = in.colRange(0, ih1);
+    auto rng2 = in.colRange(ih1, ih);
+    debugMat(rng1);
+    debugMat(rng2);
+    lam1(rng1);
+    lam2(rng2);
+}
+
+extern void resizeKeepAspectRatio(cv::Mat & in, cv::Mat & out);
+extern void centerText(cv::Mat& im, const std::string & label);

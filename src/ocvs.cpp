@@ -57,3 +57,20 @@ void resizeKeepAspectRatio(cv::Mat & in, cv::Mat & out) {
 	copyMakeBorder(dst1, out, deltaH, _hRem, deltaW, _wRem, cv::BORDER_CONSTANT, 0);
 }
 
+// Helper function to put text in the center of a rectangle
+void centerText(cv::Mat& im, const std::string & label)
+{
+    int fontface = cv::FONT_HERSHEY_DUPLEX;
+    double scale = 0.9;
+    int thickness = 1;
+    int baseline = 0;
+    
+    auto r = cv::Rect(0, 0, im.cols, im.rows);
+    
+    cv::Size text = cv::getTextSize(label, fontface, scale, thickness, &baseline);
+    cv::Point pt(r.x + (r.width-text.width)/2, r.y + (r.height+text.height)/2);
+    
+    cv::putText(im, label, pt, fontface, scale, CV_RGB(255,255,255), thickness, 8);
+}
+
+
