@@ -63,7 +63,7 @@ teasy::opts teasy::getOpts(int argc, const char** argv)
 		vector<time_t> timepoints;
 		if(data["timepoints"].is_array()) {
 			forEach(data["timepoints"], lambda(Json val) -> void {
-					auto a = val;
+					
 				});
 		}
 		struct opts options = ((struct opts) { program, (unsigned int)width, (unsigned int)height, timepoints });

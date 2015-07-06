@@ -62,7 +62,7 @@ void showFrame(Mat &fromBuffer)
 		padCanvas(canvas, 0.1, lambda(inner) {
 				auto s = curTime();
 				auto df = diffTime(todayAtNow(), todayAt(19,00));
-				centerText(inner, s + " - " + df);
+				centerText(inner, s + "   " + df);
 			});
     };
     

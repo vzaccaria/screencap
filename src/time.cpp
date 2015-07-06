@@ -24,10 +24,15 @@ time_t todayAtNow() {
 
 string diffTime(time_t s, time_t d) {
 	int df  = difftime(d, s);
+	auto sign = "";
+	if(df < 0) {
+		sign = "-";
+		df = -1 * df;
+	}
 	df = df / 60;
 	int hr  = df / (60);
 	int min = (df % 60);
-	return fmt::format("{:0>2}:{:0>2}", hr, min);
+	return fmt::format("{}{:0>2}:{:0>2}", sign, hr, min);
 }
 
 
