@@ -44,7 +44,7 @@ generateProject(function (_) {
 
 
   _.collectSeq("all", function (_) {
-    _.toFile("bin/screen.x", (_) => {
+    _.toFile("bin/teasy.x", (_) => {
       _.clangExe((_) => {
           _.clang("src/*.cpp", "src/*.hpp", "lib3rd/**/*.{h,hpp}");
           _.clang("lib3rd/CF++/source/*.cpp", "lib3rd/CF++/include/**/*.h");
@@ -53,6 +53,6 @@ generateProject(function (_) {
 		  _.clang("lib3rd/cppformat/*.cc", "lib3rd/cppformat/*.h");
       })
     })
-    _.cmd("chmod +x bin/screen.x")
+    _.cmd("chmod +x bin/teasy.x")
   })
 })

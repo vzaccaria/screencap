@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <utility>
 #include <mutex>
+#include "time.hpp"
 
 using namespace cv;
 
@@ -59,12 +60,12 @@ void showFrame(Mat &fromBuffer)
 				drawBlackRect(c2, rect);
 			});
 		padCanvas(canvas, 0.1, lambda(inner) {
-				centerText(inner, "Foo centered");
+				centerText(inner, curTime());
 			});
     };
     
     resizeKeepAspectRatio(fromBuffer, destBuffer);
-    splitV(destBuffer, 0.2, displayTime, lambda(foo) { });
+    splitV(destBuffer, 0.1, displayTime, lambda(foo) { });
 
     std::lock_guard<std::mutex> guard(buffAccess);
     imshow("Display window", destBuffer);
