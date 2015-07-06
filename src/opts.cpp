@@ -5,6 +5,7 @@
 #include "cppformat/format.h"
 #include "opts.hpp"
 #include "print.hpp"
+#include "underscore.hxx"
 
 
 static const char USAGE[] =
@@ -24,6 +25,7 @@ static const char USAGE[] =
 )";
 
 using namespace std;
+using namespace _;
 
 #define checkopt(v)   (args.count(v) && args[v].isBool() && args[v].asBool())
 #define checkopts(v)  (args.count(v) && args[v].isString())
@@ -44,22 +46,28 @@ teasy::opts teasy::getOpts(int argc, const char** argv)
 				debugm(v.second.asString());
 			}
 		}
-			string error;
-            string name = getOptString("--config", "default");
-			string filename = getOptString("--file", "config.json");
+		string error;
+		string name = getOptString("--config", "default");
+		string filename = getOptString("--file", "config.json");
 			
-			auto config = shell::cat(filename);
-			auto data   = (json11::Json::parse(config, error))[0][name];
+		auto config = shell::cat(filename);
+		auto data   = (json11::Json::parse(config, error))[0][name];
 			
-			string program = args["PROGRAM"].asString();
+		string program = args["PROGRAM"].asString();
 
-			reportMessage("Using filename " + filename);
-			reportMessage("Using configuration " + name);
+		reportMessage("Using filename " + filename);
+		reportMessage("Using configuration " + name);
 			
-			auto width = data["width"].int_value();
-			auto height = data["height"].int_value();
-			struct opts options = ((struct opts) { program, (unsigned int)width, (unsigned int)height });
-			return options;
+		auto width = data["width"].int_value();
+		auto height = data["height"].int_value();
+		vector<time_t> timepoints;
+		if(data["timepoints"].is_array()) {
+			forEach(data["timepoints"], lambda(Json val) -> void {
+					auto a = val;
+				});
+		}
+		struct opts options = ((struct opts) { program, (unsigned int)width, (unsigned int)height, timepoints });
+		return options;
     } catch(...) {
 		reportError(TS_CANT_READ_CONFIG, "Cannot read configuration file.");
     }

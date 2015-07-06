@@ -60,7 +60,9 @@ void showFrame(Mat &fromBuffer)
 				drawBlackRect(c2, rect);
 			});
 		padCanvas(canvas, 0.1, lambda(inner) {
-				centerText(inner, curTime());
+				auto s = curTime();
+				auto df = diffTime(todayAtNow(), todayAt(19,00));
+				centerText(inner, s + " - " + df);
 			});
     };
     
