@@ -6,7 +6,13 @@
 void reportError(int code, const std::string & message) {
 	auto s = fmt::format("[TS {:x}] {}", code, message);
 	std::cout << s << std::endl;
-	exit(code);
+	if(code > 0) {
+		exit(code);
+	}
+}
+
+void reportMessage(const std::string & message) {
+	reportError(0, message);
 }
 
 void printHeader() {
