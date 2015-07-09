@@ -1,10 +1,10 @@
 #include <iostream>
 #include <utility>
 #include <unistd.h>
-#include "osx.hpp"
-#include "ocv.hpp"
-#include "opts.hpp"
-#include "print.hpp"
+#include "HAL/CoreGraphicsHelpers.hpp"
+#include "Draw.hpp"
+#include "Options.hpp"
+#include "Generic/Print.hpp"
 #include "cppformat/format.h"
 #include <folly/futures/Future.h>
 

@@ -3,10 +3,10 @@
 #include "shell.hxx"
 #include "json11/json11.hpp"
 #include "cppformat/format.h"
-#include "opts.hpp"
-#include "print.hpp"
+#include "Options.hpp"
+#include "Generic/Print.hpp"
 #include "underscore.hxx"
-#include "time.hpp"
+#include "Generic/Time.hpp"
 #include <vector>
 
 static const char USAGE[] =

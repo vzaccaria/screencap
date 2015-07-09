@@ -1,10 +1,10 @@
-#include "ocv.hpp"
-#include "ocvs.hpp"
+#include "Draw.hpp"
+#include "HAL/OpenCVHelpers.hpp"
 #include <algorithm>
 #include <utility>
 #include <mutex>
 #include <iterator>
-#include "time.hpp"
+#include "Generic/Time.hpp"
 
 using namespace cv;
 

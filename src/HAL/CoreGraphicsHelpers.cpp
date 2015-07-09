@@ -1,4 +1,4 @@
-#include "osx.hpp"
+#include "CoreGraphicsHelpers.hpp"
 
 auto wOptionAll    = kCGWindowListOptionAll;
 auto wOnScreenOnly = kCGWindowListOptionOnScreenOnly;

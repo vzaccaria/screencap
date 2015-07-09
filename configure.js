@@ -51,7 +51,7 @@ generateProject(function(_) {
     _.collectSeq("all", function(_) {
         _.toFile("bin/teasy.x", (_) => {
             _.clangExe((_) => {
-                _.clang("src/*.cpp", "src/*.hpp", "lib3rd/**/*.{h,hpp}");
+                _.clang("src/**/*.cpp", "src/**/*.hpp", "lib3rd/**/*.{h,hpp}");
                 _.clang("lib3rd/CF++/source/*.cpp", "lib3rd/CF++/include/**/*.h");
                 _.clang("lib3rd/docopt/docopt.cpp", "lib3rd/docopt/docopt.h");
                 _.clang("lib3rd/json11/json11.cpp", "lib3rd/json11/json11.hpp");
