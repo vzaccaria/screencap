@@ -42,6 +42,10 @@ generateProject(function (_) {
     _.reduceFiles(command, product, body)
   }
 
+	_.collect("docs", _ => {
+		_.cmd("./node_modules/.bin/git-hist readme.md")
+	});
+
 
   _.collectSeq("all", function (_) {
     _.toFile("bin/teasy.x", (_) => {
