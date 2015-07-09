@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <utility>
 #include <mutex>
+#include <iterator>
 #include "time.hpp"
 
 using namespace cv;
@@ -50,25 +51,29 @@ void initFrame(int width, int height)
 
 std::mutex buffAccess;
 
-void showFrame(Mat &fromBuffer)
+void showFrame(Mat &fromBuffer,  const teasy::opts &o)
 {
 	Mat destBuffer(gWidth, gHeight, CV_8UC4);
+    std::lock_guard<std::mutex> guard(buffAccess);
    
     auto displayTime = lambda(canvas) {
 		overlayOn(canvas, 0.2, lambda(c2) {
 				auto rect = pad(canvas, 0.05).first;
 				drawBlackRect(c2, rect);
 			});
-		padCanvas(canvas, 0.1, lambda(inner) {
-				auto s = curTime();
-				auto df = diffTime(todayAtNow(), todayAt(19,00));
-				centerText(inner, s + "   " + df);
+		padCanvas(canvas, 0.1, [&](Mat & inner) {
+				auto pos = find_if(o.timepoints.begin(), o.timepoints.end(), [&](time_t v) -> bool {
+				 		return (v >= todayAtNow());
+				});
+				if(pos != std::end(o.timepoints)) {
+					auto df = diffTime(todayAtNow(), *pos);
+					centerText(inner, curTime() + "   " + df);
+				}
 			});
     };
     
     resizeKeepAspectRatio(fromBuffer, destBuffer);
     splitV(destBuffer, 0.1, displayTime, lambda(foo) { });
 
-    std::lock_guard<std::mutex> guard(buffAccess);
     imshow("Display window", destBuffer);
 }

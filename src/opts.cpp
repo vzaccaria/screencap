@@ -6,7 +6,8 @@
 #include "opts.hpp"
 #include "print.hpp"
 #include "underscore.hxx"
-
+#include "time.hpp"
+#include <vector>
 
 static const char USAGE[] =
 	R"(teasy.
@@ -32,6 +33,15 @@ using namespace _;
 
 #define getOptString(v, default) (((args.count(v) > 0) && args[v].isString()) ? args[v].asString() : default)
 #define getOptBool(v, default)   (((args.count(v) > 0) && args[v].isBool()) ? args[v].asBool() : default)
+
+auto jGetInt = lambda(Json obj, string field) {
+	if(!obj[field].is_number()) {
+		throw fmt::format("Sorry, field {} is expected to be integer", field);
+	} else {
+		return obj[field].int_value();
+	}
+};
+
 
 teasy::opts teasy::getOpts(int argc, const char** argv)
 {
@@ -62,10 +72,15 @@ teasy::opts teasy::getOpts(int argc, const char** argv)
 		auto height = data["height"].int_value();
 		vector<time_t> timepoints;
 		if(data["timepoints"].is_array()) {
-			forEach(data["timepoints"], lambda(Json val) -> void {
-					
+			forEach(data["timepoints"], [&](Json val) -> void {
+					auto h = jGetInt(val, "hours");
+					auto m = jGetInt(val, "minutes");
+					debugm(fmt::format("detected hour: {}, min: {}", h, m));
+					const time_t t = todayAt(h, m);
+					timepoints.push_back(t);
 				});
 		}
+		sort(timepoints.begin(), timepoints.end());
 		struct opts options = ((struct opts) { program, (unsigned int)width, (unsigned int)height, timepoints });
 		return options;
     } catch(...) {

@@ -21,13 +21,13 @@ using namespace folly;
 */
 
 
-Future<void> processFrame(CGWindowID wid) {
+Future<void> processFrame(CGWindowID wid, const teasy::opts &o) {
 	auto promise = make_shared<Promise<void>>(); /* Shared is for counting references to it. */
 	std::thread([=]{
 			cv::Mat cgBuffer;
 			auto windowImage = getWindowImage(wid);
 			convertImage(windowImage,cgBuffer);
-			showFrame(cgBuffer);			
+			showFrame(cgBuffer, o);			
 			promise->setValue();
 		}).detach();
 	return promise->getFuture();
@@ -44,7 +44,7 @@ int main(int argc, const char **argv)
 	if(wid != 0) {
 		initFrame(opts.width, opts.height);
 		while (true) {
-			processFrame(wid);
+			processFrame(wid, opts);
 			waitKey(200);
 		}
 	} else {
