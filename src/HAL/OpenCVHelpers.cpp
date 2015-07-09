@@ -58,10 +58,9 @@ void resizeKeepAspectRatio(cv::Mat & in, cv::Mat & out) {
 }
 
 // Helper function to put text in the center of a rectangle
-void centerText(cv::Mat& im, const std::string & label)
+void centerText(cv::Mat& im, const std::string & label, double scale)
 {
     int fontface = cv::FONT_HERSHEY_DUPLEX;
-    double scale = 0.9;
     int thickness = 1;
     int baseline = 0;
     

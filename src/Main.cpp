@@ -1,12 +1,12 @@
 #include <iostream>
 #include <utility>
 #include <unistd.h>
-#include "HAL/CoreGraphicsHelpers.hpp"
 #include "Draw.hpp"
 #include "Options.hpp"
 #include "Generic/Print.hpp"
 #include "cppformat/format.h"
 #include <folly/futures/Future.h>
+#include "HAL/CoreGraphicsHelpers.hpp"
 
 using namespace std;
 using namespace cv;
@@ -33,6 +33,12 @@ Future<void> processFrame(CGWindowID wid, const teasy::opts &o) {
 	return promise->getFuture();
 }
 
+void parseKey(char k, teasy::opts &o) {
+	if(k=='t') {
+		o.showJustTime = ! o.showJustTime;
+	}
+}
+
 
 int main(int argc, const char **argv)
 {
@@ -45,7 +51,8 @@ int main(int argc, const char **argv)
 		initFrame(opts.width, opts.height);
 		while (true) {
 			processFrame(wid, opts);
-			waitKey(200);
+			auto k = waitKey(300);
+			parseKey(k, opts);
 		}
 	} else {
 		reportError(TS_CANT_FIND_PROGRAM, fmt::format("Cannot find window for `{}`", opts.program));

@@ -29,10 +29,11 @@ string diffTime(time_t s, time_t d) {
 		sign = "-";
 		df = -1 * df;
 	}
+	auto sec = df % 60;
 	df = df / 60;
 	int hr  = df / (60);
 	int min = (df % 60);
-	return fmt::format("{}{:0>2}:{:0>2}", sign, hr, min);
+	return fmt::format("{}{:0>2}:{:0>2}:{:0>2}", sign, hr, min, sec);
 }
 
 

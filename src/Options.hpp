@@ -11,6 +11,7 @@ namespace teasy {
 		unsigned int   width;
 		unsigned int   height;
 		std::vector<time_t> timepoints;
+		bool showJustTime;
     } opts;
 
 	opts getOpts(int argc, const char** argv);

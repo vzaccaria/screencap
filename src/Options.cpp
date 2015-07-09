@@ -81,7 +81,7 @@ teasy::opts teasy::getOpts(int argc, const char** argv)
 				});
 		}
 		sort(timepoints.begin(), timepoints.end());
-		struct opts options = ((struct opts) { program, (unsigned int)width, (unsigned int)height, timepoints });
+		struct opts options = ((struct opts) { program, (unsigned int)width, (unsigned int)height, timepoints, false });
 		return options;
     } catch(...) {
 		reportError(TS_CANT_READ_CONFIG, "Cannot read configuration file.");

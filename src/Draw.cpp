@@ -53,27 +53,37 @@ std::mutex buffAccess;
 
 void showFrame(Mat &fromBuffer,  const teasy::opts &o)
 {
-	Mat destBuffer(gWidth, gHeight, CV_8UC4);
+	Mat destBuffer(gHeight, gWidth, CV_8UC4);
     std::lock_guard<std::mutex> guard(buffAccess);
-   
-    auto displayTime = lambda(canvas) {
-		overlayOn(canvas, 0.2, lambda(c2) {
-				auto rect = pad(canvas, 0.05).first;
-				drawBlackRect(c2, rect);
-			});
-		padCanvas(canvas, 0.1, [&](Mat & inner) {
-				auto pos = find_if(o.timepoints.begin(), o.timepoints.end(), [&](time_t v) -> bool {
-				 		return (v >= todayAtNow());
+    if(!o.showJustTime){
+		auto displayTime = lambda(canvas) {
+			overlayOn(canvas, 0.2, lambda(c2) {
+					auto rect = pad(canvas, 0.05).first;
+					drawBlackRect(c2, rect);
 				});
-				if(pos != std::end(o.timepoints)) {
-					auto df = diffTime(todayAtNow(), *pos);
-					centerText(inner, curTime() + "   " + df);
-				}
-			});
-    };
+			padCanvas(canvas, 0.1, [&](Mat & inner) {
+					auto pos = find_if(o.timepoints.begin(), o.timepoints.end(), [&](time_t v) -> bool {
+							return (v >= todayAtNow());
+						});
+					if(pos != std::end(o.timepoints)) {
+						auto df = diffTime(todayAtNow(), *pos);
+						centerText(inner, curTime() + "   " + df);
+					}
+				});
+		};
     
-    resizeKeepAspectRatio(fromBuffer, destBuffer);
-    splitV(destBuffer, 0.1, displayTime, lambda(foo) { });
+		resizeKeepAspectRatio(fromBuffer, destBuffer);
+		splitV(destBuffer, 0.1, displayTime, lambda(foo) { });
+	} else {
+		auto pos = find_if(o.timepoints.begin(), o.timepoints.end(), [&](time_t v) -> bool {
+				return (v >= todayAtNow());
+			});
+		if(pos != std::end(o.timepoints)) {
+			auto df = diffTime(todayAtNow(), *pos);
+			drawBlackRect(destBuffer, cv::Rect(0,0,destBuffer.cols,destBuffer.rows));
+			centerText(destBuffer, curTime() + "   " + df, 3);
+		}
+	}
 
     imshow("Display window", destBuffer);
 }

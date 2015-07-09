@@ -61,4 +61,4 @@ void splitH(cv::Mat & in, float alpha, Func1 lam1, Func2 lam2) {
 }
 
 extern void resizeKeepAspectRatio(cv::Mat & in, cv::Mat & out);
-extern void centerText(cv::Mat& im, const std::string & label);
+extern void centerText(cv::Mat& im, const std::string & label, double scale=0.9);

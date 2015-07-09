@@ -1,13 +1,16 @@
 [{
     "default": {
-        "width": 800,
-        "height": 600,
+        "width": 1280,
+        "height": 760,
         "timepoints": [{
             "hours": 9,
             "minutes": 15
         }, {
             "hours": 13,
             "minutes": 45
+        }, {
+            "hours": 18,
+            "minutes": 20
         }]
     }
 }]
