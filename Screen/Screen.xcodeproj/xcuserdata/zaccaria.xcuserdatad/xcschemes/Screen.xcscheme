@@ -40,7 +40,7 @@
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
       <PathRunnable
-         FilePath = "/Users/zaccaria/development/github/screencap/bin/screen.x">
+         FilePath = "/Users/zaccaria/development/github/screencap/bin/teasy.x">
       </PathRunnable>
       <MacroExpansion>
          <BuildableReference
@@ -53,7 +53,7 @@
       </MacroExpansion>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "conf ct41 Terminal -c /Users/zaccaria/development/github/screencap/test.json"
+            argument = "Terminal -f /Users/zaccaria/development/github/screencap/config.json"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
@@ -62,10 +62,13 @@
    </LaunchAction>
    <ProfileAction
       shouldUseLaunchSchemeArgsEnv = "YES"
-      savedToolIdentifier = ""
+      savedToolIdentifier = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Instruments/PlugIns/templates/Multicore.tracetemplate"
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Release"
+      buildConfiguration = "Debug"
       debugDocumentVersioning = "YES">
+      <PathRunnable
+         FilePath = "/Users/zaccaria/development/github/screencap/bin/teasy.x">
+      </PathRunnable>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"

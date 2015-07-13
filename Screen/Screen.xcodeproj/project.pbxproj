@@ -7,36 +7,40 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		30F796781B45236D0046198F /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = config.h; path = ../src/config.h; sourceTree = "<group>"; };
-		30F796791B45236D0046198F /* ocv.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ocv.cpp; path = ../src/ocv.cpp; sourceTree = "<group>"; };
-		30F7967B1B4523A50046198F /* ocv.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ocv.hpp; path = ../src/ocv.hpp; sourceTree = "<group>"; };
-		30F7967C1B4523A50046198F /* ocvs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ocvs.cpp; path = ../src/ocvs.cpp; sourceTree = "<group>"; };
-		30F7967D1B4523A50046198F /* ocvs.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ocvs.hpp; path = ../src/ocvs.hpp; sourceTree = "<group>"; };
-		30F7967E1B4523A50046198F /* opts.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = opts.cpp; path = ../src/opts.cpp; sourceTree = "<group>"; };
-		30F7967F1B4523A50046198F /* opts.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = opts.hpp; path = ../src/opts.hpp; sourceTree = "<group>"; };
-		30F796801B4523A50046198F /* osx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = osx.cpp; path = ../src/osx.cpp; sourceTree = "<group>"; };
-		30F796811B4523A50046198F /* osx.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = osx.hpp; path = ../src/osx.hpp; sourceTree = "<group>"; };
-		30F796821B4523A50046198F /* print.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = print.cpp; path = ../src/print.cpp; sourceTree = "<group>"; };
-		30F796831B4523A50046198F /* print.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = print.hpp; path = ../src/print.hpp; sourceTree = "<group>"; };
-		30F796841B4523A50046198F /* screen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = screen.cpp; path = ../src/screen.cpp; sourceTree = "<group>"; };
+		300ECA731B53CEC300E867FD /* config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = config.h; path = ../src/config.h; sourceTree = "<group>"; };
+		300ECA741B53CEC300E867FD /* Draw.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Draw.hpp; path = ../src/Draw.hpp; sourceTree = "<group>"; };
+		300ECA751B53CEC300E867FD /* Options.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Options.hpp; path = ../src/Options.hpp; sourceTree = "<group>"; };
+		300ECA761B53CEC300E867FD /* Draw.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Draw.cpp; path = ../src/Draw.cpp; sourceTree = "<group>"; };
+		300ECA771B53CEC300E867FD /* Main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Main.cpp; path = ../src/Main.cpp; sourceTree = "<group>"; };
+		300ECA781B53CEC300E867FD /* Options.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Options.cpp; path = ../src/Options.cpp; sourceTree = "<group>"; };
+		300ECA791B53CECF00E867FD /* Print.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Print.hpp; path = ../src/Generic/Print.hpp; sourceTree = "<group>"; };
+		300ECA7A1B53CECF00E867FD /* Time.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Time.hpp; path = ../src/Generic/Time.hpp; sourceTree = "<group>"; };
+		300ECA7B1B53CECF00E867FD /* Print.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Print.cpp; path = ../src/Generic/Print.cpp; sourceTree = "<group>"; };
+		300ECA7C1B53CECF00E867FD /* Time.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Time.cpp; path = ../src/Generic/Time.cpp; sourceTree = "<group>"; };
+		300ECA7D1B53CED900E867FD /* CoreGraphicsHelpers.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = CoreGraphicsHelpers.hpp; path = ../src/HAL/CoreGraphicsHelpers.hpp; sourceTree = "<group>"; };
+		300ECA7E1B53CED900E867FD /* OpenCVHelpers.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = OpenCVHelpers.hpp; path = ../src/HAL/OpenCVHelpers.hpp; sourceTree = "<group>"; };
+		300ECA7F1B53CED900E867FD /* CoreGraphicsHelpers.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CoreGraphicsHelpers.cpp; path = ../src/HAL/CoreGraphicsHelpers.cpp; sourceTree = "<group>"; };
+		300ECA801B53CED900E867FD /* OpenCVHelpers.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = OpenCVHelpers.cpp; path = ../src/HAL/OpenCVHelpers.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		30F7966D1B45230C0046198F = {
 			isa = PBXGroup;
 			children = (
-				30F7967C1B4523A50046198F /* ocvs.cpp */,
-				30F7967D1B4523A50046198F /* ocvs.hpp */,
-				30F7967E1B4523A50046198F /* opts.cpp */,
-				30F7967F1B4523A50046198F /* opts.hpp */,
-				30F796801B4523A50046198F /* osx.cpp */,
-				30F796811B4523A50046198F /* osx.hpp */,
-				30F796821B4523A50046198F /* print.cpp */,
-				30F796831B4523A50046198F /* print.hpp */,
-				30F796841B4523A50046198F /* screen.cpp */,
-				30F796781B45236D0046198F /* config.h */,
-				30F7967B1B4523A50046198F /* ocv.hpp */,
-				30F796791B45236D0046198F /* ocv.cpp */,
+				300ECA731B53CEC300E867FD /* config.h */,
+				300ECA741B53CEC300E867FD /* Draw.hpp */,
+				300ECA751B53CEC300E867FD /* Options.hpp */,
+				300ECA761B53CEC300E867FD /* Draw.cpp */,
+				300ECA771B53CEC300E867FD /* Main.cpp */,
+				300ECA781B53CEC300E867FD /* Options.cpp */,
+				300ECA791B53CECF00E867FD /* Print.hpp */,
+				300ECA7A1B53CECF00E867FD /* Time.hpp */,
+				300ECA7B1B53CECF00E867FD /* Print.cpp */,
+				300ECA7C1B53CECF00E867FD /* Time.cpp */,
+				300ECA7D1B53CED900E867FD /* CoreGraphicsHelpers.hpp */,
+				300ECA7E1B53CED900E867FD /* OpenCVHelpers.hpp */,
+				300ECA7F1B53CED900E867FD /* CoreGraphicsHelpers.cpp */,
+				300ECA801B53CED900E867FD /* OpenCVHelpers.cpp */,
 			);
 			sourceTree = "<group>";
 		};
