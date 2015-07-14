@@ -1,0 +1,3 @@
+[submodule "lib3rd/linenoise"]
+	path = lib3rd/linenoise
+	url = https://github.com/antirez/linenoise.git
