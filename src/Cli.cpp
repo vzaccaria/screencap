@@ -61,7 +61,10 @@ void startCommandLoop() {
 
 
 map<char, string> keyMap = {
-	{ 'q', "exit"}
+	{ 'q', "exit"},
+	{ 'n', "view next"},
+	{ 'b', "view previous"},
+	{ 'o', "view toggle"}
 };
 
 void processChar(char c) {
