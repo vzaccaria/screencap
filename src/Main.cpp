@@ -2,11 +2,12 @@
 #include <utility>
 #include <unistd.h>
 #include "Draw.hpp"
-#include "Options.hpp"
+#include "State.hpp"
 #include "Generic/Print.hpp"
 #include "cppformat/format.h"
 #include <folly/futures/Future.h>
 #include "HAL/CoreGraphicsHelpers.hpp"
+#include "Cli.hpp"
 
 using namespace std;
 using namespace cv;
@@ -21,40 +22,32 @@ using namespace folly;
 */
 
 
-Future<void> processFrame(CGWindowID wid, const teasy::opts &o) {
+Future<void> processFrame(CGWindowID wid) {
 	auto promise = make_shared<Promise<void>>(); /* Shared is for counting references to it. */
 	std::thread([=]{
 			cv::Mat cgBuffer;
 			auto windowImage = getWindowImage(wid);
 			convertImage(windowImage,cgBuffer);
-			showFrame(cgBuffer, o);			
+			showFrame(cgBuffer);			
 			promise->setValue();
 		}).detach();
 	return promise->getFuture();
 }
 
-void parseKey(char k, teasy::opts &o) {
-	if(k=='t') {
-		o.showJustTime = ! o.showJustTime;
-	}
+void videoLoop() {
+	while (true) {
+		auto state = getState();
+		if(state.displayOpen && state.currentProgram) {
+			processFrame(state.currentProgram);
+		}
+		waitKey(300);
+	}	
 }
 
 
 int main(int argc, const char **argv)
 {
-
-	auto opts = getOpts(argc, argv);
-	auto wid = getWindowID(opts.program);
 	printHeader();
-
-	if(wid != 0) {
-		initFrame(opts.width, opts.height);
-		while (true) {
-			processFrame(wid, opts);
-			auto k = waitKey(300);
-			parseKey(k, opts);
-		}
-	} else {
-		reportError(TS_CANT_FIND_PROGRAM, fmt::format("Cannot find window for `{}`", opts.program));
-	}
+	startCommandLoop();
+	videoLoop();
 }

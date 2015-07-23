@@ -8,6 +8,15 @@ var opencv_lopts = "-L/usr/local/Cellar/opencv/2.4.11/lib -lopencv_calib3d -lope
 
 var opencv_copts = "-I/usr/local/Cellar/opencv/2.4.11/include/opencv -I/usr/local/Cellar/opencv/2.4.11/include"
 
+var ccopts = `\\
+    -I. \\
+    -Ilib3rd \\
+    -Ilib3rd/docopt \\
+    -Ilib3rd/CF++/include \\
+    -I/usr/local/include \\
+    ${opencv_copts}`
+
+
 var copts = `\\
     -std=c++11 \\
     -I. \\
@@ -36,6 +45,13 @@ generateProject(function(_) {
         _.compileFiles(...([command, product, src].concat(deps)))
     }
 
+	_.cc = (src, ...deps) => {
+        var command = (_) => `clang -g ${ccopts} -c ${_.source} -o ${_.product}`
+        var product = (_) => `${_.source.replace(/\..*/, '.o')}`
+        _.compileFiles(...([command, product, src].concat(deps)))
+    }
+
+
     _.clangExe = (body) => {
         var command = (_) => `clang++ -g ${lopts} ${_.sources.join(' ')} -o ${_.product}`
         var product = () => `clang-${uid(4)}.x`
@@ -52,6 +68,7 @@ generateProject(function(_) {
         _.toFile("bin/teasy.x", (_) => {
             _.clangExe((_) => {
                 _.clang("src/**/*.cpp", "src/**/*.hpp", "lib3rd/**/*.{h,hpp}");
+				_.cc("lib3rd/linenoise/linenoise.c")
                 _.clang("lib3rd/CF++/source/*.cpp", "lib3rd/CF++/include/**/*.h");
                 _.clang("lib3rd/docopt/docopt.cpp", "lib3rd/docopt/docopt.h");
                 _.clang("lib3rd/json11/json11.cpp", "lib3rd/json11/json11.hpp");
