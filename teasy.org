@@ -9,8 +9,8 @@ TODO VZ -*- mode: org -*-
 
 Commands and subcommands should have a unique initial letter, for abbreviations.
 
-** TODO [#A] Fix command line history on cursor up/down.
-
+** DONE [#A] Fix command line history on cursor up/down.
+<2015-07-23 Thu>
 ** View commands
 
 *** DONE [#A] =view set PROG= create or move a program to the top of the window stack <2015-07-23 Thu> 

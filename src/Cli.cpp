@@ -8,23 +8,30 @@
 #include "linenoise/linenoise.h"
 #include "debug.hxx"
 
-
 using namespace std;
 
-std::map<string, string> aliases;
+
+typedef decltype(executeViewCommand) trampoline;
 
 
+bool justExit(vector<string> const & v) {
+	exit(0);
+}
+
+map<string, string> aliases;
+map<string, trampoline *> tramp = {
+	{ string("view"), executeViewCommand },
+	{ string("exit"), &justExit }
+};
 
 
 void processString(const string & s) {
 	auto w = _s::words(s);
-	if(w[0] == "view") {
+	auto n = w[0];
+	
+	if(tramp.count(n)) {
 		w.erase(w.begin());
-		executeViewCommand(w);
-	}
-
-	if(w[0] == "exit") {
-		exit(0);
+		tramp[n](w);
 	}
 }
 
@@ -39,7 +46,7 @@ void commandLoop() {
 }
 
 void startCommandLoop() {
-	std::thread([=]{
+	thread([=]{
 			commandLoop();
 		}).detach();
 }
