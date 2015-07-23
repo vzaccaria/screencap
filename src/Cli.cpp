@@ -18,7 +18,10 @@ bool justExit(vector<string> const & v) {
 	exit(0);
 }
 
+
+
 map<string, string> aliases;
+
 map<string, trampoline *> tramp = {
 	{ string("view"), executeViewCommand },
 	{ string("exit"), &justExit }
@@ -27,6 +30,11 @@ map<string, trampoline *> tramp = {
 
 void processString(const string & s) {
 	auto w = _s::words(s);
+	
+	for(auto & v: w) {
+		debugf("'{}'", v);
+		v = _s::trim(v);
+	}
 	auto n = w[0];
 	
 	if(tramp.count(n)) {
@@ -51,3 +59,14 @@ void startCommandLoop() {
 		}).detach();
 }
 
+
+map<char, string> keyMap = {
+	{ 'q', "exit"}
+};
+
+void processChar(char c) {
+	if(keyMap.count(c)) {
+		debugf("Invoking command associated with {}", c);
+		processString(keyMap[c]);
+	}
+}

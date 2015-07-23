@@ -41,7 +41,7 @@ float gHeight;
 
 void initFrame(int width, int height)
 {
-    namedWindow( "Display window", 0);
+    namedWindow( "Display window", CV_WINDOW_NORMAL);
     resizeWindow( "Display window", width, height);
     
     gWidth = width;

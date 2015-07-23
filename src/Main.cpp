@@ -8,6 +8,11 @@
 #include <folly/futures/Future.h>
 #include "HAL/CoreGraphicsHelpers.hpp"
 #include "Cli.hpp"
+#include "debug.hxx"
+#include "docopt/docopt.h"
+#include "Commands/Helpers.hpp"
+#include "underscore.hxx"
+
 
 using namespace std;
 using namespace cv;
@@ -34,20 +39,60 @@ Future<void> processFrame(CGWindowID wid) {
 	return promise->getFuture();
 }
 
-void videoLoop() {
-	while (true) {
-		auto state = getState();
-		if(state.displayOpen && state.currentProgram) {
-			processFrame(state.currentProgram);
+#define SLP 300
+
+static const char USAGE[] =
+	R"(teasy.
+
+    Usage:
+      teasy eval EXPR 
+      teasy [ -h | --help ]
+
+    Commands:
+      eval                        Evaluate an expression as if it were typed on the command line
+
+    Arguments:
+      EXPR                        Lines should be separated by semicolons (;)
+
+)";
+
+void parseOptions(int argc, const char **argv) {
+	
+	auto args = docopt::docopt(USAGE, {
+			argv + 1, argv + argc
+				}, true, "Teasy 0.0");
+
+	if(__is_true("eval")) {
+		auto commandList = __s_either_or("EXPR", "");
+		auto cm = _s::words(commandList, ";");
+		for(auto s: cm) {
+			processString(s);
 		}
-		waitKey(300);
-	}	
+	}
 }
+
+
 
 
 int main(int argc, const char **argv)
 {
 	printHeader();
+	parseOptions(argc, argv);
 	startCommandLoop();
-	videoLoop();
+	while(true) {
+		auto state = getState();
+		initFrame(state.width, state.height);
+		if(state.displayOpen) {
+            if(state.currentProgram) {
+			 	processFrame(state.currentProgram);
+            }
+			auto c = waitKey(SLP);
+			debugf("we got {}", c);
+            if(c != -1) {
+                processChar(c);
+            }
+		} else {
+			std::this_thread::sleep_for(std::chrono::milliseconds(SLP));
+		}
+	}
 }

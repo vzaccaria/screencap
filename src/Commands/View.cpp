@@ -104,7 +104,6 @@ bool executeViewCommand(std::vector<std::string> const& argv) {
 			auto w = __i_either_or("WIDTH", 1280);
 			auto h = __i_either_or("HEIGHT", 768);
 			modifyState([&](teasy::state *s) {
-					initFrame(w, h);
 					s->width = w;
 					s->height = h;
 					s->displayOpen = true;
