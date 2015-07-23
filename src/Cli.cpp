@@ -1,6 +1,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <thread>
+#include <map>
 #include "underscore.hxx"
 #include "Commands/View.hpp"
 #include "cppformat/format.h"
@@ -10,6 +11,9 @@
 
 using namespace std;
 
+std::map<string, string> aliases;
+
+
 
 
 void processString(const string & s) {
@@ -18,15 +22,20 @@ void processString(const string & s) {
 		w.erase(w.begin());
 		executeViewCommand(w);
 	}
+
+	if(w[0] == "exit") {
+		exit(0);
+	}
 }
 
 void commandLoop() {
-	auto l = linenoise("> ");
-	processString(l);
-	while((l = linenoise("> ")) != NULL) {
+	char *l;
+	do {
+		l = linenoise("> ");
 		processString(l);
 		linenoiseHistoryAdd(l);
-	}
+		free(l);
+	} while(l != NULL);
 }
 
 void startCommandLoop() {
