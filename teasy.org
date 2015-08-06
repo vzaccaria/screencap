@@ -28,15 +28,18 @@ Commands and subcommands should have a unique initial letter, for abbreviations.
 *** DONE [#B] =view next | previous | toggle=
  <2015-07-23 Thu>
 *** DONE [#A] Add keymaps to next, previous, toggle<2015-07-23 Thu> 
-*** TODO [#A] Add choice of program from a window list
-*** NEXT [#B] Add choice of output window size from a list
-** Show commands
+*** DONE [#A] Add choice of program from a window list
+	 CLOSED: [2015-08-06 Thu 17:29]
+*** DONE [#B] Add choice of output window size from a list
+	 CLOSED: [2015-08-06 Thu 17:29]
 
--  =show time= for toggling full screen time
--  =show message MSG= for showing a message, overlayed
--  =show liveview (WxH)= show a small live view on the principal screen
+** TODO Show commands
++ =show time= for toggling full screen time
++ =show message MSG= for showing a message, overlayed
++ =show liveview (WxH)= show a small live view on the principal screen
 
-** Timer commands
+** DONE Timer commands
+   CLOSED: [2015-08-06 Thu 17:30]
 -  =timer set HH:MM= add a new timer 
 -  =timer clear (all | HH:MM)= clear all/one timer
 -  =timer show= show set commands for currently set timers

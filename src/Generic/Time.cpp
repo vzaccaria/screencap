@@ -5,16 +5,14 @@
 
 using namespace std;
 
-string computeTime(int secAdd) {
-	time_t t = time(0);   // get time now
-	t = t + secAdd;
+string time2s(time_t t) {
     struct tm * now = localtime( & t );
 	auto s = fmt::format("{:0>2}:{:0>2}", now->tm_hour, now->tm_min);
 	return s;
 }
 
-string curTime() {
-	return computeTime(0);
+string curTime2s() {
+	return time2s(time(0));
 }
 
 time_t todayAtNow() {

@@ -4,6 +4,7 @@
 #include <map>
 #include "underscore.hxx"
 #include "Commands/View.hpp"
+#include "Commands/Timer.hpp"
 #include "cppformat/format.h"
 #include "linenoise/linenoise.h"
 #include "debug.hxx"
@@ -26,6 +27,7 @@ map<string, string> aliases;
 
 map<string, trampoline *> tramp = {
 	{ string("view"), executeViewCommand },
+	{ string("timer"), executeTimerCommand },
 	{ string("exit"), &justExit }
 };
 
@@ -72,7 +74,8 @@ map<char, string> keyMap = {
 	{ 'q', "exit"},
 	{ 'n', "view next"},
 	{ 'b', "view previous"},
-	{ 'o', "view toggle"}
+	{ 'o', "view toggle"},
+	{ 't', "timer display"}
 };
 
 void processChar(char c) {

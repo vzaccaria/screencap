@@ -69,8 +69,10 @@ void showFrame(Mat &fromBuffer)
                         });
                     if(pos != std::end(o.timepoints)) {
                         auto df = diffTime(todayAtNow(), *pos);
-                        centerText(inner, curTime() + "   " + df);
-                    }
+                        centerText(inner, curTime2s() + "   " + df);
+                    } else {
+						centerText(inner, curTime2s());
+					}
                 });
         };
     
@@ -80,11 +82,13 @@ void showFrame(Mat &fromBuffer)
         auto pos = find_if(o.timepoints.begin(), o.timepoints.end(), [&](time_t v) -> bool {
                 return (v >= todayAtNow());
             });
+        drawBlackRect(destBuffer, cv::Rect(0,0,destBuffer.cols,destBuffer.rows));
         if(pos != std::end(o.timepoints)) {
             auto df = diffTime(todayAtNow(), *pos);
-            drawBlackRect(destBuffer, cv::Rect(0,0,destBuffer.cols,destBuffer.rows));
-            centerText(destBuffer, curTime() + "   " + df, 3);
-        }
+            centerText(destBuffer, curTime2s() + "   " + df, 3);
+        } else {
+			centerText(destBuffer, curTime2s(), 3);
+		}
     }
 
     imshow("Display window", destBuffer);
