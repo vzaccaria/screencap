@@ -1,6 +1,17 @@
 TODO VZ -*- mode: org -*-
 #+STARTUP: overview
-#+TAGS: TEST(t) DEVELOP(d) MAIL(m)
+#+STARTUP: hidestars
+#+STARTUP: logdone
+
+#+TAGS  MAIL(m) PHONE(h) MEET(e)
+#+TAGS  WRITING(w) READING(r)
+#+TAGS  DESIGN(g) DEVELOP(d) TEST(t)
+#+TAGS  LECTURE(u) EXAM(x)
+
+#+TYP_TODO: TODO NEXT | DONE(.)
+
+
+
 #+STARTUP: hidestars
 
 * DONE Integration with the command line <2015-07-21 Tue> 
@@ -16,7 +27,9 @@ Commands and subcommands should have a unique initial letter, for abbreviations.
 *** DONE [#A] =view set PROG= create or move a program to the top of the window stack <2015-07-23 Thu> 
 *** DONE [#B] =view next | previous | toggle=
  <2015-07-23 Thu>
-*** TODO [#A] Add keymaps to next, previous, toggle
+*** DONE [#A] Add keymaps to next, previous, toggle<2015-07-23 Thu> 
+*** TODO [#A] Add choice of program from a window list
+*** NEXT [#B] Add choice of output window size from a list
 ** Show commands
 
 -  =show time= for toggling full screen time
@@ -31,4 +44,6 @@ Commands and subcommands should have a unique initial letter, for abbreviations.
 ** Other commands
 -  =help= show help and abbreviations
 
-
+* Fixes 
+** DONE [#A] Fix segmentation fault on pressing two times enter		:DEVELOP:
+   CLOSED: [2015-08-06 Thu 12:45]
