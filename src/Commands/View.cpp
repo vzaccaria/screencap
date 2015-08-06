@@ -10,20 +10,44 @@
 #include <vector>
 #include "Helpers.hpp"
 #include "../Draw.hpp"
+#include "map"
+
+typedef struct sInfo {
+	int width;
+	int height;
+} sInfo;
+	
+typedef std::map<std::string, sInfo> sInfos;
+
+sInfos sInfosValues = {
+	{"vga", {640, 480}},
+	{"svga", {800, 600}},
+	{"xga", {1024, 768}},
+	{"sxga", {1280, 1024}}, 
+	{"wxga", {1280, 768}},
+	{"uxga", {1600, 1200}},
+	{"2k", {2048, 1080}},
+	{"4k", {4096, 3072}}
+};
+
+void showSInfosValues() {
+	for(auto x: sInfosValues) {
+		std::cout << fmt::format("{:<10} - {:>4} x {:<4}", x.first, x.second.width, x.second.height) << std::endl;
+	}
+}
 
 static const char USAGE[] =
-	R"(view.
+					 R"(view.
 
     Usage:
-      view init WIDTH HEIGHT
+      view init (NAME | (-l | --list))
       view (next | previous | toggle)
-      view set PROGRAM
+      view set NUM
+      view list 
       view help
 
     Arguments:
-      PROGRAM                     Program to insert into the visualization stack
-      WIDTH                       Width of the displaying window
-      HEIGHT                      Height of the displaying window
+      NUM                         Index of the program to show (from `view list`)
 
     Commands:
       init                        Open window with the specified dimensions
@@ -31,6 +55,7 @@ static const char USAGE[] =
       next                        Show next program in the vis. stack
       previous                    Show prev program in the vis. stack
       toggle                      Toggle vis. between last two programs
+      list                        Display a list of available windows
       help                        This help
 
 )";
@@ -79,6 +104,14 @@ void toggleState() {
 		});
 }
 
+void listOfWindows() {
+	auto l = getWindowList();
+	for(auto i=0; i < l.size(); i++) {
+		auto w = l[i];
+		cout << fmt::format("{} - {:<40} ({:x})", i, w.first, w.second) << endl;
+	}
+}
+
 bool executeViewCommand(std::vector<std::string> const& argv) {
 	try {
 		for(auto v: argv) {
@@ -101,23 +134,43 @@ bool executeViewCommand(std::vector<std::string> const& argv) {
 		}
 
 		if(__is_true("init")) {
-			auto w = __i_either_or("WIDTH", 1280);
-			auto h = __i_either_or("HEIGHT", 768);
-			modifyState([&](teasy::state *s) {
-					s->width = w;
-					s->height = h;
-					s->displayOpen = true;
-				});
+			if(__is_true("--list") || __is_true("-l")) {
+				showSInfosValues();
+			} else {
+				auto sn = __s_either_or("NAME", "small");
+				if(sInfosValues.count(sn)) {
+					modifyState([&](teasy::state *s) {
+							s->width = sInfosValues[sn].width;
+							s->height = sInfosValues[sn].height;
+							s->displayOpen = true;
+						});					
+				} else {
+					reportError(TS_COMMAND_ERROR, "Invalid configuration specified");
+					return false;
+		
+				}
+			}
+		}
+
+
+		if(__is_true("list")) {
+			listOfWindows();
 		}
 
 		if(__is_true("set")) {
-			auto p = __s_either_or("PROGRAM", "NONE");
-			auto wid = getWindowID(p);
-			if(wid != 0) {
-				modifyState([&](teasy::state *s) {
-						s->currentProgram = wid;
-						s->programQueue.push_front(wid);
-					});
+			auto p = __i_either_or("NUM", 0);
+			auto l = getWindowList();
+			if(p < l.size()) {
+				auto wid = l[p].second;
+				if(wid != 0) {
+					modifyState([&](teasy::state *s) {
+							s->currentProgram = wid;
+							s->programQueue.push_front(wid);
+						});
+				}
+			} else {
+				reportError(TS_COMMAND_ERROR, "Invalid program specified");
+				return false;
 			}
 		}
 
@@ -125,7 +178,8 @@ bool executeViewCommand(std::vector<std::string> const& argv) {
 			std::cout << USAGE << endl;
 		}
 		
-	} catch(...) {
+	} catch(const std::exception& ex) {
+		debugf("Exception message: {}", ex.what());
 		std::cout << USAGE << endl;
 		reportError(TS_COMMAND_ERROR, "Invalid arguments specified");
 		return false;

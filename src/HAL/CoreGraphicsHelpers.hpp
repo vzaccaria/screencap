@@ -6,6 +6,11 @@
 #include <utility>
 #include <opencv2/opencv.hpp>
 #include <unistd.h>
+#include <vector>
 
-CGWindowID getWindowID(std::string wname);
-CGImageRef getWindowImage(CGWindowID windowId);
+typedef std::pair<std::string, CGWindowID> CGWindowInfo;
+typedef std::vector<CGWindowInfo> CGWindowInfoList;
+
+CGWindowID   getWindowID(std::string wname);
+CGImageRef   getWindowImage(CGWindowID windowId);
+CGWindowInfoList getWindowList();

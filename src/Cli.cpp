@@ -16,6 +16,7 @@ typedef decltype(executeViewCommand) trampoline;
 
 
 bool justExit(vector<string> const & v) {
+	debugf("Exiting..");
 	exit(0);
 }
 
@@ -37,7 +38,7 @@ void processString(const string & s) {
 		v = _s::trim(v);
 	}
 
-	if(w.size() > 1) {
+	if(w.size() >= 1) {
 		auto n = w[0];
 	
 		if(tramp.count(n)) {
