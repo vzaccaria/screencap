@@ -10,6 +10,7 @@
 
 using namespace std;
 
+/* Docs about cppformat: http://cppformat.github.io/latest/ */
 
 typedef decltype(executeViewCommand) trampoline;
 
@@ -35,11 +36,14 @@ void processString(const string & s) {
 		debugf("'{}'", v);
 		v = _s::trim(v);
 	}
-	auto n = w[0];
+
+	if(w.size() > 1) {
+		auto n = w[0];
 	
-	if(tramp.count(n)) {
-		w.erase(w.begin());
-		tramp[n](w);
+		if(tramp.count(n)) {
+			w.erase(w.begin());
+			tramp[n](w);
+		}
 	}
 }
 
@@ -47,9 +51,12 @@ void commandLoop() {
 	char *l;
 	do {
 		l = linenoise("> ");
-		processString(l);
-		linenoiseHistoryAdd(l);
-		free(l);
+		debugf("read line: '{0:x}'", (long int)l);
+		if(l != NULL) {
+			processString(l);
+			linenoiseHistoryAdd(l);
+			free(l);
+		}
 	} while(l != NULL);
 }
 
