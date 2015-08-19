@@ -22,15 +22,41 @@ bool justExit(vector<string> const & v) {
 }
 
 
+bool justHelp(vector<string> const & v);
+
+typedef std::pair<trampoline *, string> trampData;
 
 map<string, string> aliases;
 
-map<string, trampoline *> tramp = {
-	{ string("view"), executeViewCommand },
-	{ string("timer"), executeTimerCommand },
-	{ string("exit"), &justExit }
+map<string, trampData> tramp = {
+	{ string("view"),  { executeViewCommand , "Create and add windows by name" }},
+	{ string("timer"), { executeTimerCommand, "Add and remove timer breakpoints" }},
+	{ string("exit"),  { justExit           , "Exit" }},
+	{ string("help"),  { justHelp           , "This help" }}
 };
 
+map<char, string> keyMap = {
+	{ 'q', "exit"},
+	{ 'n', "view next"},
+	{ 'b', "view previous"},
+	{ 'o', "view toggle"},
+	{ 't', "timer display"}
+};
+
+
+bool justHelp(vector<string> const & v) {
+	cout << "Available commands\n" << endl;
+	for(auto v: tramp) {
+		cout << fmt::format("{:<20} - {}", v.first, v.second.second) << endl;
+	}
+	cout << "\nFor help on each *command*, type '*command* help'" << endl;
+	
+	cout << "Available keymaps (live window)\n" << endl;
+	for(auto v: keyMap) {
+		cout << fmt::format("{:<20} aliased to '{}'", v.first, v.second) << endl;
+	}
+	return true;
+}
 
 void processString(const string & s) {
 	auto w = _s::words(s);
@@ -45,7 +71,7 @@ void processString(const string & s) {
 	
 		if(tramp.count(n)) {
 			w.erase(w.begin());
-			tramp[n](w);
+			tramp[n].first(w);
 		}
 	}
 }
@@ -70,13 +96,6 @@ void startCommandLoop() {
 }
 
 
-map<char, string> keyMap = {
-	{ 'q', "exit"},
-	{ 'n', "view next"},
-	{ 'b', "view previous"},
-	{ 'o', "view toggle"},
-	{ 't', "timer display"}
-};
 
 void processChar(char c) {
 	if(keyMap.count(c)) {

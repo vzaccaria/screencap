@@ -33,7 +33,7 @@ Commands and subcommands should have a unique initial letter, for abbreviations.
 *** DONE [#B] Add choice of output window size from a list
 	 CLOSED: [2015-08-06 Thu 17:29]
 
-** TODO Show commands
+** TODO [#A] Show commands
 + =show time= for toggling full screen time
 + =show message MSG= for showing a message, overlayed
 + =show liveview (WxH)= show a small live view on the principal screen
@@ -46,6 +46,9 @@ Commands and subcommands should have a unique initial letter, for abbreviations.
 
 ** Other commands
 -  =help= show help and abbreviations
+
+* Features 
+** TODO [#B] Display video on a native window
 
 * Fixes 
 ** DONE [#A] Fix segmentation fault on pressing two times enter		:DEVELOP:
