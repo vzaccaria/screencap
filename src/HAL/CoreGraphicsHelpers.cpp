@@ -1,8 +1,10 @@
 #include "CoreGraphicsHelpers.hpp"
+#include "cppformat/format.h"
 
-auto wOptionAll    = kCGWindowListOptionAll;
-auto wOnScreenOnly = kCGWindowListOptionOnScreenOnly;
-auto wNullWindow   = kCGNullWindowID;
+auto wOptionAll		= kCGWindowListOptionAll;
+auto wOnScreenOnly	= kCGWindowListOptionOnScreenOnly;
+auto wNullWindow	= kCGNullWindowID;
+auto wNoDesktop		= kCGWindowListExcludeDesktopElements;
 
 using namespace std;
 
@@ -19,6 +21,24 @@ auto _wcopts = kCGWindowImageBoundsIgnoreFraming;
 
 using namespace std;
 
+CGWindowInfoList getWindowList() {
+	CGWindowInfoList l;
+	auto windowList = __a(CGWindowListCopyWindowInfo(wOnScreenOnly | wNoDesktop, wNullWindow));
+	for (auto window: windowList) {
+		auto oname = __s(__dv(window, _s("kCGWindowOwnerName")));
+		auto name = __s(__dv(window, _s("kCGWindowName")));
+		auto wid = __n(__dv(window, _s("kCGWindowNumber")));
+		auto cname = fmt::format("{} - {}", oname, name);
+		auto p = CGWindowInfo(cname, wid);
+		l.push_back(p);
+	}
+	sort(l.begin(), l.end(), [](CGWindowInfo w1, CGWindowInfo w2) -> bool {
+	 		return w1.first < w2.first;	
+	 	});
+
+	return l;
+}
+
 CGWindowID getWindowID(string wname) {
 	auto windowList = __a(CGWindowListCopyWindowInfo(wOptionAll | wOnScreenOnly, wNullWindow));
 
@@ -31,7 +51,7 @@ CGWindowID getWindowID(string wname) {
 }
 
 CGImageRef getWindowImage(CGWindowID windowId) {
- return CGWindowListCreateImage(_wrect, _wlopts, windowId, _wcopts);
+	return CGWindowListCreateImage(_wrect, _wlopts, windowId, _wcopts);
 }
 
 

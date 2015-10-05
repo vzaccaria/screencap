@@ -53,7 +53,7 @@
       </MacroExpansion>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "Terminal -f /Users/zaccaria/development/github/screencap/config.json"
+            argument = "eval &apos;view init 1280 760; view set iTerm2; view set Emacs&apos;"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

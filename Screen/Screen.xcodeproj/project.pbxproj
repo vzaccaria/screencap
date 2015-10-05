@@ -21,6 +21,13 @@
 		300ECA7E1B53CED900E867FD /* OpenCVHelpers.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = OpenCVHelpers.hpp; path = ../src/HAL/OpenCVHelpers.hpp; sourceTree = "<group>"; };
 		300ECA7F1B53CED900E867FD /* CoreGraphicsHelpers.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CoreGraphicsHelpers.cpp; path = ../src/HAL/CoreGraphicsHelpers.cpp; sourceTree = "<group>"; };
 		300ECA801B53CED900E867FD /* OpenCVHelpers.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = OpenCVHelpers.cpp; path = ../src/HAL/OpenCVHelpers.cpp; sourceTree = "<group>"; };
+		305E6C0E1B5E256300E8BD13 /* Cli.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Cli.cpp; path = ../src/Cli.cpp; sourceTree = "<group>"; };
+		305E6C0F1B5E256300E8BD13 /* Cli.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Cli.hpp; path = ../src/Cli.hpp; sourceTree = "<group>"; };
+		305E6C101B5E256300E8BD13 /* Helpers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Helpers.hpp; path = ../src/Commands/Helpers.hpp; sourceTree = "<group>"; };
+		305E6C111B5E256300E8BD13 /* View.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = View.cpp; path = ../src/Commands/View.cpp; sourceTree = "<group>"; };
+		305E6C121B5E256300E8BD13 /* View.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = View.hpp; path = ../src/Commands/View.hpp; sourceTree = "<group>"; };
+		305E6C131B5E256300E8BD13 /* State.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = State.cpp; path = ../src/State.cpp; sourceTree = "<group>"; };
+		305E6C141B5E256300E8BD13 /* State.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = State.hpp; path = ../src/State.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -30,6 +37,13 @@
 				300ECA731B53CEC300E867FD /* config.h */,
 				300ECA741B53CEC300E867FD /* Draw.hpp */,
 				300ECA751B53CEC300E867FD /* Options.hpp */,
+				305E6C0E1B5E256300E8BD13 /* Cli.cpp */,
+				305E6C0F1B5E256300E8BD13 /* Cli.hpp */,
+				305E6C101B5E256300E8BD13 /* Helpers.hpp */,
+				305E6C111B5E256300E8BD13 /* View.cpp */,
+				305E6C121B5E256300E8BD13 /* View.hpp */,
+				305E6C131B5E256300E8BD13 /* State.cpp */,
+				305E6C141B5E256300E8BD13 /* State.hpp */,
 				300ECA761B53CEC300E867FD /* Draw.cpp */,
 				300ECA771B53CEC300E867FD /* Main.cpp */,
 				300ECA781B53CEC300E867FD /* Options.cpp */,
