@@ -43,7 +43,7 @@ void initFrame(int width, int height)
 {
     namedWindow( "Display window", CV_WINDOW_NORMAL);
     resizeWindow( "Display window", width, height);
-    
+
     gWidth = width;
     gHeight = height;
 }
@@ -53,7 +53,7 @@ std::mutex buffAccess;
 
 void showFrame(Mat &fromBuffer)
 {
-    
+
     auto o = getState();
     Mat destBuffer(gHeight, gWidth, CV_8UC4);
     std::lock_guard<std::mutex> guard(buffAccess);
@@ -71,11 +71,11 @@ void showFrame(Mat &fromBuffer)
                         auto df = diffTime(todayAtNow(), *pos);
                         centerText(inner, curTime2s() + "   " + df);
                     } else {
-						centerText(inner, curTime2s());
-					}
+                        centerText(inner, curTime2s());
+                    }
                 });
         };
-    
+
         resizeKeepAspectRatio(fromBuffer, destBuffer);
         splitV(destBuffer, 0.1, displayTime, lambda(foo) { });
     } else {
@@ -87,9 +87,9 @@ void showFrame(Mat &fromBuffer)
             auto df = diffTime(todayAtNow(), *pos);
             centerText(destBuffer, curTime2s() + "   " + df, 3);
         } else {
-			centerText(destBuffer, curTime2s(), 3);
-		}
+            centerText(destBuffer, curTime2s(), 3);
+        }
     }
-
+    cvtColor(destBuffer, destBuffer, CV_BGR2RGB);
     imshow("Display window", destBuffer);
 }
