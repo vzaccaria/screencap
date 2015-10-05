@@ -8,7 +8,7 @@ TODO VZ -*- mode: org -*-
 #+TAGS  DESIGN(g) DEVELOP(d) TEST(t)
 #+TAGS  LECTURE(u) EXAM(x)
 
-#+TYP_TODO: TODO NEXT | DONE(.)
+#+TYP_TODO: TODO NEXT | DONE(.) CANCELLED(.)
 
 
 
@@ -33,19 +33,21 @@ Commands and subcommands should have a unique initial letter, for abbreviations.
 *** DONE [#B] Add choice of output window size from a list
 	 CLOSED: [2015-08-06 Thu 17:29]
 
-** TODO [#A] Show commands
+** CANCELLED [#A] Show commands
+   CLOSED: [2015-08-19 Wed 18:53]
 + =show time= for toggling full screen time
 + =show message MSG= for showing a message, overlayed
 + =show liveview (WxH)= show a small live view on the principal screen
 
 ** DONE Timer commands
    CLOSED: [2015-08-06 Thu 17:30]
--  =timer set HH:MM= add a new timer 
--  =timer clear (all | HH:MM)= clear all/one timer
+-  =timer set HH MM= add a new timer 
+-  =timer clear= clear all timers
 -  =timer show= show set commands for currently set timers
 
-** Other commands
--  =help= show help and abbreviations
+** DONE Other commands
+   CLOSED: [2015-08-19 Wed 18:49]
+- =help= show help and abbreviations
 
 * Features 
 ** TODO [#B] Display video on a native window
